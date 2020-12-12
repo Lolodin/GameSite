@@ -10,7 +10,12 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        return Article::all();
+
+       // return Article::query()->orderBy('created_at', 'desc')->take(10)->get();
+        return Article::latest()->limit(10)->get();
+    }
+    public function getLastArticles() {
+        return Article::la
     }
 
     public function show(Article $article)

@@ -22,9 +22,15 @@ export default {
                 this.activeButton = false
                 setTimeout(()=>this.activeButton = true, 500)
             }
+
             if (localStorage.getItem("token") != null) {
+                console.log(localStorage.getItem("token"))
                 alert("Вы уже авторизованы на сайте")
+                let redirect = '/login'
+                document.location.href = redirect
+                localStorage.clear()
                 return
+
             }
 
             let data = {"email" : this.email, "password": this.password}
@@ -37,7 +43,8 @@ export default {
             })
             let response = await res.json()
             localStorage.setItem("token", response.token)
-            console.log( localStorage.getItem("token"), "local")
+            let redirect = '/login'
+            document.location.href = redirect
 
         },
 

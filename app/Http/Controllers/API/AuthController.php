@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -58,8 +59,18 @@ class AuthController extends Controller
     // 4
 }
 
-    public function login(Request $request)
-    {
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function revokToken(Request $request) {
+        /**
+         * @var User $user
+         */
+   $user = $request->user();
+   $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+   return response()->json(['user'=>$user->id]);
     }
+
+
 }

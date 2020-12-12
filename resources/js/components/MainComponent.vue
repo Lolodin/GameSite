@@ -25,6 +25,9 @@ import Footer from "./Footer";
         },
         methods: {
         },
+        mounted: function () {
+            this.$on('login',function () {this.$forceUpdate()})
+        },
 
     }
 </script>

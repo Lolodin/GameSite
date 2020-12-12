@@ -1973,7 +1973,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, res, response;
+        var _redirect, data, res, response, redirect;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1986,19 +1987,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 if (!(localStorage.getItem("token") != null)) {
-                  _context.next = 4;
+                  _context.next = 8;
                   break;
                 }
 
+                console.log(localStorage.getItem("token"));
                 alert("Вы уже авторизованы на сайте");
+                _redirect = '/login';
+                document.location.href = _redirect;
+                localStorage.clear();
                 return _context.abrupt("return");
 
-              case 4:
+              case 8:
                 data = {
                   "email": _this.email,
                   "password": _this.password
                 };
-                _context.next = 7;
+                _context.next = 11;
                 return fetch('api/sanctum/token', {
                   headers: {
                     'Content-Type': 'application/json'
@@ -2007,17 +2012,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   body: JSON.stringify(data)
                 });
 
-              case 7:
+              case 11:
                 res = _context.sent;
-                _context.next = 10;
+                _context.next = 14;
                 return res.json();
 
-              case 10:
+              case 14:
                 response = _context.sent;
                 localStorage.setItem("token", response.token);
-                console.log(localStorage.getItem("token"), "local");
+                redirect = '/login';
+                document.location.href = redirect;
 
-              case 13:
+              case 18:
               case "end":
                 return _context.stop();
             }
@@ -2071,7 +2077,12 @@ __webpack_require__.r(__webpack_exports__);
     "my-header": _header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     "scroll-card": _ScrollCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  methods: {}
+  methods: {},
+  mounted: function mounted() {
+    this.$on('login', function () {
+      this.$forceUpdate();
+    });
+  }
 });
 
 /***/ }),
@@ -2320,7 +2331,22 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    Logout: function Logout() {}
+    Logout: function Logout() {
+      var link = '/api/log';
+      var token = window.localStorage.getItem('token');
+      var response = fetch(link, {
+        headers: {
+          "Authorization": "Bearer " + token,
+          'Content-Type': 'application/json'
+        },
+        method: "GET"
+      });
+      response.then(function (res) {
+        res.json().then(function (result) {
+          alert(result.user);
+        });
+      });
+    }
   },
   props: {},
   data: function data() {
@@ -6886,7 +6912,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.menubutton[data-v-798ca618] {\n    height: 100px;\n    width: 200px;\n    /*border: 2px solid #000;*/\n    /*border-collapse: collapsed;*/\n}\n.up_menu[data-v-798ca618] {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: flex-start;\n}\n#hd[data-v-798ca618] {\n    width: 900px;\n    height: 400px;\n    border-radius: 50em;\n}\n#hello[data-v-798ca618] {\n    width: 400px;\n    margin-left: auto;\n    margin-right: auto;\n}\n#name[data-v-798ca618] {\nfloat: right;\n}\n\n", ""]);
+exports.push([module.i, "\n.menubutton[data-v-798ca618] {\n    height: 100px;\n    width: 200px;\n    /*border: 2px solid #000;*/\n    /*border-collapse: collapsed;*/\n}\n.up_menu[data-v-798ca618] {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: flex-start;\n}\n#hd[data-v-798ca618] {\n    width: 900px;\n    height: 400px;\n    border-radius: 50em;\n}\n#hello[data-v-798ca618] {\n    width: 300px;\n    margin-left: auto;\n    margin-right: auto;\n    padding-left: 550px;\n}\n\n\n", ""]);
 
 // exports
 
@@ -40014,7 +40040,8 @@ var render = function() {
           ? _c("router-link", { attrs: { to: "" } }, [
               _c("img", {
                 staticClass: "menubutton",
-                attrs: { src: "/svg/buttonmenuExit.svg" }
+                attrs: { src: "/svg/buttonmenuExit.svg" },
+                on: { click: _vm.Logout }
               })
             ])
           : _vm._e()
@@ -40035,12 +40062,7 @@ var render = function() {
               expression: "name"
             }
           },
-          [
-            _vm._v("Добро пожаловать "),
-            _c("div", { attrs: { id: "name" } }, [
-              _vm._v(_vm._s(_vm.name) + " ")
-            ])
-          ]
+          [_vm._v("Добро пожаловать " + _vm._s(_vm.name))]
         )
       : _vm._e()
   ])
@@ -55639,15 +55661,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/components/RegisterComponent.vue ***!
   \*******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RegisterComponent_vue_vue_type_template_id_51f045bf_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterComponent.vue?vue&type=template&id=51f045bf&scoped=true& */ "./resources/js/components/RegisterComponent.vue?vue&type=template&id=51f045bf&scoped=true&");
 /* harmony import */ var _RegisterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/RegisterComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _RegisterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _RegisterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _RegisterComponent_vue_vue_type_style_index_0_id_51f045bf_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegisterComponent.vue?vue&type=style&index=0&id=51f045bf&scoped=true&lang=css& */ "./resources/js/components/RegisterComponent.vue?vue&type=style&index=0&id=51f045bf&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _RegisterComponent_vue_vue_type_style_index_0_id_51f045bf_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegisterComponent.vue?vue&type=style&index=0&id=51f045bf&scoped=true&lang=css& */ "./resources/js/components/RegisterComponent.vue?vue&type=style&index=0&id=51f045bf&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -55679,7 +55700,7 @@ component.options.__file = "resources/js/components/RegisterComponent.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/RegisterComponent.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

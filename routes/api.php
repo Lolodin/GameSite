@@ -27,11 +27,13 @@ Route::middleware('auth:sanctum')->get('/name', function (Request $request) {
 });
 Route::middleware('auth:sanctum')->namespace("App\http\Controllers")->group(function (){
     Route::post('articles', 'ArticleController@store');
+    Route::get('log', 'API\AuthController@revokToken');
     Route::put('articles/{article}', 'ArticleController@update');
     Route::delete('articles/{article}', 'ArticleController@delete');
-    Route::get('articles', 'ArticleController@index');
+
 });
 
-//Route::get('articles', 'App\Http\Controllers\ArticleController@index');
+Route::get('articles', 'App\Http\Controllers\ArticleController@index');
+
 Route::get('articles/{article}', 'App\Http\Controllers\ArticleController@show');
 
