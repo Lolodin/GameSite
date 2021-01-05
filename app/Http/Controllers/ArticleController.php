@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Models\Article;
@@ -10,13 +11,14 @@ class ArticleController extends Controller
 {
     public function index()
     {
+        /**
+         * @var $articleList Collection
+         */
+        $articleList = Article::latest()->limit(10)->get();
 
-       // return Article::query()->orderBy('created_at', 'desc')->take(10)->get();
-        return Article::latest()->limit(10)->get();
+        return $articleList;
     }
-    public function getLastArticles() {
-        return Article::la
-    }
+
 
     public function show(Article $article)
     {
@@ -25,7 +27,16 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        $article = Article::create($request->all());
+        /**
+         * @var $article Article
+         */
+        $article = Article::create([
+            'title' => $request['title'],
+            'body' => $request['body'],
+            'preview' => mb_strimwidth($request['body'], 0, 150, '<br> <a class="articleLink" href="api/articles/" ">Читать полностью</a>'),
+            'user_id' => $request->user()->id,
+        ]);
+
 
         return response()->json($article, 201);
     }

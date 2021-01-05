@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import card from "./card.vue";
+import card from "./Card.vue";
 export default {
 name: "ScrollCard",
 components: {

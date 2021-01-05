@@ -22,14 +22,13 @@ Route::prefix('sanctum')->namespace('App\http\Controllers\API')->group(function(
     Route::post('register', 'AuthController@register');
     Route::post('token', 'AuthController@token');
 });
-Route::middleware('auth:sanctum')->get('/name', function (Request $request) {
-    return response()->json(['name' => $request->user()->name]);
-});
+
 Route::middleware('auth:sanctum')->namespace("App\http\Controllers")->group(function (){
     Route::post('articles', 'ArticleController@store');
-    Route::get('log', 'API\AuthController@revokToken');
+    Route::get('logout', 'API\AuthController@deleteToken');
     Route::put('articles/{article}', 'ArticleController@update');
     Route::delete('articles/{article}', 'ArticleController@delete');
+    Route::get('/name', 'API\AuthController@getUserInfo');
 
 });
 

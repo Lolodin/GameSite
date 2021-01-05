@@ -2,40 +2,50 @@
     <div>
         <img id="hd" src="/svg/logov2.svg">
 
-    <div class="up_menu">
+        <div class="up_menu">
 
-        <router-link to="/news"> <img  class="menubutton" src="/svg/buttonmenuNews.svg"></router-link>
-        <router-link v-if="name==undefined" to="/login"><img  class="menubutton" src="/svg/buttonmenuLogin.svg"></router-link>
-        <router-link to="/plans"> <img  class="menubutton" src="/svg/buttonmenumain.svg"></router-link>
-        <router-link v-if="name!=undefined" to="" > <img  @click="Logout" class="menubutton" src="/svg/buttonmenuExit.svg"></router-link>
+            <router-link to="/news"><img class="menubutton" src="/svg/buttonmenuNews.svg"></router-link>
+            <router-link v-if="name==undefined" to="/login"><img class="menubutton" src="/svg/buttonmenuLogin.svg">
+            </router-link>
+            <router-link to="/home"><img class="menubutton" src="/svg/buttonmenumain.svg"></router-link>
+            <router-link v-if="name!=undefined" to=""><img @click="Logout" class="menubutton"
+                                                           src="/svg/buttonmenuExit.svg"></router-link>
 
-    </div>
 
-        <div v-if="name!=undefined"  v-model="name"  id="hello">Добро пожаловать {{name}}</div>
+        </div>
+
+        <div v-if="name!=undefined" v-model="name" id="hello">Добро пожаловать {{ name }}</div>
+        <div v-if="role== 'admin'" class = "admin">
+            <ul>
+                <li> <router-link class="string" to="/create">Создать новость</router-link></li>
+
+            </ul>
+        </div>
     </div>
 </template>
 <script>
 
 
-
 export default {
     created:
-         function () {
+        function () {
             let link = '/api/name';
             let token = window.localStorage.getItem('token')
             let response = fetch(link, {
                 headers: {
-                    "Authorization": "Bearer "+token,
-                    'Content-Type': 'application/json'},
+                    "Authorization": "Bearer " + token,
+                    'Content-Type': 'application/json'
+                },
                 method: "GET",
             })
-            response.then((res)=>{
+            response.then((res) => {
                 if (res.error != undefined) {
-                    this.name= undefined
+                    this.name = undefined
                 }
-                let r = res.json().then((result)=> {
+                let r = res.json().then((result) => {
                     this.name = result.name
-                    console.log(this.name, result)
+                    this.role = result.role
+                    console.log(result, result)
                 })
 
                 console.log(this.name, r)
@@ -46,7 +56,7 @@ export default {
 
     methods: {
         Logout() {
-            let link = '/api/log';
+            let link = '/api/logout';
             let token = window.localStorage.getItem('token')
             let response = fetch(link, {
                 headers: {
@@ -57,18 +67,19 @@ export default {
             })
             response.then((res) => {
                 res.json().then((result) => {
-                    alert(result.user)
+
                 })
             })
         }
     },
-        props: {},
-        data() {
-            return {
-                name: undefined
-            }
+    props: {},
+    data() {
+        return {
+            name: undefined,
+            role: undefined
         }
     }
+}
 </script>
 
 <style scoped>
@@ -78,6 +89,7 @@ export default {
     /*border: 2px solid #000;*/
     /*border-collapse: collapsed;*/
 }
+
 .up_menu {
     display: flex;
     flex-direction: row;
@@ -85,11 +97,13 @@ export default {
     align-items: flex-start;
 
 }
+
 #hd {
     width: 900px;
     height: 400px;
     border-radius: 50em;
 }
+
 #hello {
     width: 300px;
     margin-left: auto;
@@ -97,7 +111,12 @@ export default {
     padding-left: 550px;
 
 
-
+}
+.admin {
+    width: 500px;
+    border: 2px solid red;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 

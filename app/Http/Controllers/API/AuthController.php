@@ -63,13 +63,17 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function revokToken(Request $request) {
+    public function deleteToken(Request $request) {
         /**
          * @var User $user
          */
    $user = $request->user();
    $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
    return response()->json(['user'=>$user->id]);
+    }
+    public  function getUserInfo(Request $request) {
+        return response()->json(['name' => $request->user()->name,
+            'role'=> $request->user()->role]);
     }
 
 

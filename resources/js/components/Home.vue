@@ -1,5 +1,8 @@
 <template>
-<scroll-card ></scroll-card>
+    <div class="main">
+<div id="intro">Endor - является идеей создания бесконечного и бесшовного мира, каждый уголок которого можно будет посетить без каких либо ограничений </div>
+
+    </div>
 </template>
 
 <script>
@@ -10,15 +13,25 @@ name: "Home",
 components: {ScrollCard},
 data() {
 return {
-    post: {
-        title: "Endor",
-        text: "Это игра с динамично расширяемым миром с средневековым сеттингом, которая погрузит"
-    }
+
 }
 }
 }
 </script>
 
 <style scoped>
-
+h1 {
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+}
+.main {
+    margin-left: auto;
+    margin-right: auto;
+}
+#intro {
+width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
 </style>
