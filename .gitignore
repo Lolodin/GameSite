@@ -5,7 +5,6 @@
 /vendor
 .idea
 /trash
-.env
 .env.backup
 .phpunit.result.cache
 Homestead.json
