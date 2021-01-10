@@ -43,7 +43,7 @@ export default {
                 let redirect = '/login'
                 document.location.href = redirect
             } else {
-                alert("Данные не валидны")
+                alert(response.error.email)
             }
 
         },

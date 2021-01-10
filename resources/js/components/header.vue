@@ -5,7 +5,7 @@
         <div class="up_menu">
 
             <router-link to="/news"><img class="menubutton" src="/svg/buttonmenuNews.svg"></router-link>
-            <router-link v-if="name==undefined" to="/login"><img class="menubutton" src="/svg/buttonmenuLogin.svg">
+            <router-link v-if="name==undefined" to="/registration"><img class="menubutton" src="/svg/buttonmenuReg.svg">
             </router-link>
             <router-link to="/home"><img class="menubutton" src="/svg/buttonmenumain.svg"></router-link>
             <router-link v-if="name!=undefined" to=""><img @click="Logout" class="menubutton"
@@ -67,6 +67,7 @@ export default {
             })
             response.then((res) => {
                 res.json().then((result) => {
+                    location.reload()
 
                 })
             })

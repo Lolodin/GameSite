@@ -33,7 +33,7 @@ class ArticleController extends Controller
         $article = Article::create([
             'title' => $request['title'],
             'body' => $request['body'],
-            'preview' => mb_strimwidth($request['body'], 0, 150, '<br> <a class="articleLink" href="api/articles/" ">Читать полностью</a>'),
+            'preview' => mb_strimwidth($request['body'], 0, 150, ''),
             'user_id' => $request->user()->id,
         ]);
 

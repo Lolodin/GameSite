@@ -3,8 +3,9 @@
         <router-link class="string" to="/home">Главная</router-link>
         <span id="pol">Все права защищены ©</span> <br>
         <router-link class="string" to="/news">Новости</router-link>
+        <span id="pol2">По всем вопросам пишите на <a href="mailto:ilii4@yandex.ru">ilii4@yandex.ru</a></span>
         <br>
-        <router-link class="string" to="/registration">Регистрация</router-link>
+        <router-link class="string" to="/login">Войти</router-link>
     </div>
 </template>
 
@@ -33,6 +34,13 @@ export default {
 
 #pol {
     padding-left: 400px;
+    color: #b05610;
+}
+#pol2 {
+    padding-left: 250px;
+    color: #b05610;
+}
+span a{
     color: #b05610;
 }
 </style>

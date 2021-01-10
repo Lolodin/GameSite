@@ -84,6 +84,8 @@ export default {
             })
             response.then((res) => {
                 res.json().then((result) => {
+                    console.log(result)
+                    location.reload()
 
                 })
             })

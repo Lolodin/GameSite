@@ -6,6 +6,8 @@
         <br>
         <div v-html="preview"></div>
         <br>
+        <router-link class="articleLink" v-bind:to="'/articles/' +id">Читать полностью</router-link>
+        <br>
         <br>
 
     </div>
@@ -23,6 +25,7 @@ export default {
       }
     },
     props: {
+        id: String,
         title: String,
         body: String,
         preview: String

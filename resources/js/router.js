@@ -2,11 +2,19 @@ import RegisterComponent from "./components/RegisterComponent.vue";
 import LoginComponent from "./components/LoginComponent.vue";
 import News from "./components/News.vue";
 import Home from "./components/Home.vue";
-import CreateArticle from "./components/CreateArticle.vue"
+import CreateArticle from "./components/CreateArticle.vue";
+import ArticlePage from "./components/ArticlePage.vue";
 export default {
     mode: 'history',
     routes: [
         {
+
+            path: '/',
+            component: News,
+
+        },
+        {
+
             path: '/news',
             component: News,
 
@@ -27,6 +35,11 @@ export default {
         {
             path: '/home',
             component: Home
+        }
+        ,
+        {
+            path: '/articles/:id',
+            component: ArticlePage
         }
     ]
 }

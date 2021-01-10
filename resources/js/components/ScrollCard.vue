@@ -2,7 +2,7 @@
     <div >
         <br>
         <div class="scrolls">
-            <img class="headscrolls" src="img/content_header.png">
+            <img class="headscrolls" src="/img/content_header.png">
             <div class="content">
                 <router-view></router-view>
 
@@ -10,7 +10,7 @@
 
 
             </div>
-            <img class="footerscrolls2" src="img/content_bot.png">
+            <img class="footerscrolls2" src="/img/content_bot.png">
 
 
 
