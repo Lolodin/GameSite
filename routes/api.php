@@ -18,12 +18,12 @@ use App\Models\Article;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-Route::prefix('sanctum')->namespace('App\http\Controllers\API')->group(function() {
+Route::prefix('sanctum')->namespace('App\Http\Controllers\API')->group(function() {
     Route::post('register', 'AuthController@register');
     Route::post('token', 'AuthController@token');
 });
 
-Route::middleware('auth:sanctum')->namespace("App\http\Controllers")->group(function (){
+Route::middleware('auth:sanctum')->namespace("App\Http\Controllers")->group(function (){
     Route::post('articles', 'ArticleController@store');
     Route::get('logout', 'API\AuthController@deleteToken');
     Route::put('articles/{article}', 'ArticleController@update');
