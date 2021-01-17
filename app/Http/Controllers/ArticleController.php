@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -48,10 +49,17 @@ class ArticleController extends Controller
         return response()->json($article, 200);
     }
 
-    public function delete(Article $article)
+    public function delete(Article $article, Request $request)
     {
+        /**
+         * @var $user User
+         */
+        $user = $request->user();
+        $role = $user->role;
+        if ($role != 'admin') {
+            return ;
+        }
         $article->delete();
-
         return response()->json(null, 204);
     }
 }

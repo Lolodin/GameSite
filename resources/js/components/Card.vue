@@ -4,7 +4,7 @@
         <br>
         <h1 class="title">{{ title }}</h1>
         <br>
-        <div v-html="preview"></div>
+        <div class="preview" v-html="preview"></div>
         <br>
         <router-link class="articleLink" v-bind:to="'/articles/' +id">Читать полностью</router-link>
         <br>
@@ -52,10 +52,11 @@ export default {
 
 
 
+
 }
 
-img {
-
+.preview {
+width: 490px;
 
 
 }

@@ -45,6 +45,7 @@ export default {
                 let r = res.json().then((result) => {
                     this.name = result.name
                     this.role = result.role
+                    window.localStorage.setItem("role", result.role)
                     console.log(result, result)
                 })
 
@@ -67,6 +68,7 @@ export default {
             })
             response.then((res) => {
                 res.json().then((result) => {
+                    window.localStorage.removeItem("role")
                     location.reload()
 
                 })

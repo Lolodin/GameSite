@@ -8,6 +8,14 @@
     <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer>
     </script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+    <style>
+        @font-face {
+            font-family: 'AlundraText';
+            src: "{{ url("fonts/1488.ttf") }}";
+            font-style: normal;
+            font-weight: normal;
+        }
+    </style>
 
     <title>{{env('APP_NAME')}}</title>
 </head>

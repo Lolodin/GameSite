@@ -1934,6 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ArticlePage",
   methods: {
@@ -1953,11 +1954,29 @@ __webpack_require__.r(__webpack_exports__);
           _this.articles = ar;
         });
       });
+    },
+    removeArticle: function removeArticle() {
+      var link = '/api/articles/' + this.$route.params.id;
+      var token = window.localStorage.getItem('token');
+      var request = fetch(link, {
+        headers: {
+          "Authorization": "Bearer " + token,
+          'Content-Type': 'application/json'
+        },
+        method: "DELETE"
+      });
+      request.then(function (res) {
+        if (res.status == 204) {
+          alert("Статья удалена");
+        }
+      });
     }
   },
   data: function data() {
+    var role = window.localStorage.getItem('role');
     return {
-      articles: undefined
+      articles: undefined,
+      role: role
     };
   },
   created: function created() {
@@ -2657,6 +2676,7 @@ __webpack_require__.r(__webpack_exports__);
       var r = res.json().then(function (result) {
         _this.name = result.name;
         _this.role = result.role;
+        window.localStorage.setItem("role", result.role);
         console.log(result, result);
       });
       console.log(_this.name, r);
@@ -2675,6 +2695,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       response.then(function (res) {
         res.json().then(function (result) {
+          window.localStorage.removeItem("role");
           location.reload();
         });
       });
@@ -7150,7 +7171,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text[data-v-b9bc2c0a] {\n\n    width: 650px;\n    padding-left: 80px;\n    margin-left: 27.4px;\n}\n.title[data-v-b9bc2c0a] {\n    text-align: center;\n    width: 490px;\n}\nimg[data-v-b9bc2c0a] {\n}\n\n", ""]);
+exports.push([module.i, "\n.text[data-v-b9bc2c0a] {\n\n    width: 650px;\n    padding-left: 80px;\n    margin-left: 27.4px;\n}\n.title[data-v-b9bc2c0a] {\n    text-align: center;\n    width: 490px;\n}\n.preview[data-v-b9bc2c0a] {\nwidth: 490px;\n}\n\n", ""]);
 
 // exports
 
@@ -40185,7 +40206,13 @@ var render = function() {
       _vm._v(" "),
       _c("div", { domProps: { innerHTML: _vm._s(_vm.articles.body) } }),
       _vm._v(" "),
-      _c("br")
+      _c("br"),
+      _vm._v(" "),
+      _vm.role == "admin"
+        ? _c("button", { on: { click: _vm.removeArticle } }, [
+            _vm._v("Удалить")
+          ])
+        : _vm._e()
     ])
   ])
 }
@@ -40222,7 +40249,10 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("div", { domProps: { innerHTML: _vm._s(_vm.preview) } }),
+        _c("div", {
+          staticClass: "preview",
+          domProps: { innerHTML: _vm._s(_vm.preview) }
+        }),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
